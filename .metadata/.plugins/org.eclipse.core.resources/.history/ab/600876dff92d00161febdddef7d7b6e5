@@ -1,0 +1,16 @@
+package com.stockaccounting.testcases;
+
+public class longintest {
+
+	
+	public static void main(String[] args) 
+	{
+		stockMaster sm=new stockMaster();
+		String res=sm.stockAcc_Launch(sm.url);
+		System.out.println(res);
+		
+		res=sm.stockAcc_Login("admin", "master");
+		System.out.println(res);
+	}
+
+}

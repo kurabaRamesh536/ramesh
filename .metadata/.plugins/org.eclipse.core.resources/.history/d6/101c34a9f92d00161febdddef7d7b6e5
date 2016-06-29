@@ -1,0 +1,13 @@
+package com.stockaccounting.testcases;
+
+public class longintest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

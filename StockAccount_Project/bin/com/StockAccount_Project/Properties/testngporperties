@@ -1,0 +1,19 @@
+@BeforeSuite
+#id properties of the lanuch field
+@AfterSuite
+#id properties of the close field
+@BeforeTest
+
+#id property od the username filed
+username=username
+
+#id property of the password field
+password=password
+
+#id property of the login button
+
+login=btnsubmit
+@AfterTest
+#id property of the logout button
+logout=btnsubmit
+

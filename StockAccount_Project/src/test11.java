@@ -1,0 +1,20 @@
+import java.io.IOException;
+
+import com.StockAccount_Project.Master.stockmaster;
+
+
+public class test11 {
+
+	
+	public static void main(String[] args) throws IOException 
+	{
+		stockmaster sm=new stockmaster();
+		
+		stockmaster.stockAcc_Lanch(sm.url);
+		sm.stockAcc_login("admin", "master");
+		sm.stockAcc_Supplier("ramesh","Ptc", "Hyderabad","India","rajesh","040-6543234","sgfsdgfsdf@gmail.com","8654534532","this supplier creation");
+	}
+	
+	}
+
+

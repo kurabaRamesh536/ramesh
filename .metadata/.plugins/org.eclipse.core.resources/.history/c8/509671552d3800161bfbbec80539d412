@@ -1,0 +1,93 @@
+
+package com.StockAccount_Project.Master;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.server.browserlaunchers.Sleeper;
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
+public class testngstockacct 
+{
+private static final String Login = null;
+public static String url="hhtp://webapp.qedgetech.com";
+public static WebDriver driver;
+public static FileInputStream f1;
+public Properties pr;
+private CharSequence admin;
+private CharSequence Master;
+public static String expval,actval;
+@BeforeSuite
+public void stockAcc_lanch() throws IOException
+{
+f1=new FileInputStream("D:\\Qedge 7.30\\StockAccount_Project\\src\\com\\StockAccount_Project\\Properties\\stockaccount.properties");
+pr=new Properties();
+pr.load(f1);
+expval="btnsubmit";
+String br=pr.getProperty("browser");
+
+if (br.equalsIgnoreCase("firefox")) 
+{
+	driver=new FirefoxDriver();
+}
+else if (br.equalsIgnoreCase("chrome"))
+	
+{
+	System.setProperty("webdriver.chrome.driver", "D:\\New folder\\stockAccounting\\src\\com\\stockAccounting\\Jars\\chromedriver.exe");
+	driver=new ChromeDriver();
+}
+else if (br.equalsIgnoreCase("ie")) 
+{
+	System.setProperty("webdriver.ie.driver", "D:\\New folder\\stockAccounting\\src\\com\\stockAccounting\\Jars\\IEDriverServer.exe");
+	driver=new InternetExplorerDriver();
+}
+driver.get(url);
+driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+driver.manage().window().maximize();
+actval=driver.findElement(By.id("btnsubmit")).getAttribute("id");
+Assert.assertEquals(actval, expval,"Launch Has Failed");
+
+}
+@AfterSuite
+public void stockAcc_Close()
+{
+	driver.close();
+}
+@BeforeTest
+public void stockAcc_Login() throws IOException
+{
+	expval="administrator";
+	driver.findElement(By.id("username")).clear();
+	driver.findElement(By.id("username")).sendKeys(admin);
+	driver.findElement(By.id("password")).clear();
+	driver.findElement(By.id("password")).sendKeys(Master);
+	driver.findElement(By.id("btnsubmit")).click();
+	actval=driver.findElement(By.xpath(".//*[@id='msUserName']/font/strong")).getText();
+Assert.assertEquals(actval,expval,"Login");
+}
+@AfterTest
+public void stockAcc_Logout()
+{
+	expval="login";
+
+		driver.findElement(By.id("logout")).click();
+		Sleeper.sleepTight(5000);
+		driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		actval=driver.findElement(By.id("btnsubmit")).getText();
+		Assert.assertEquals(actval, expval,"Logout");
+}	
+	
+}
